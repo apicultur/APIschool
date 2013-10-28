@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<link href="http://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet" type="text/css">
+
+  <head>
+    <title>Onomateca: el diccionario total.</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <style type="text/css">
+        
+
+/* column container */
+.colmask {
+        position:relative;        /* This fixes the IE7 overflow hidden bug */
+        clear:both;
+        float:left;
+        width:100%;                        /* width of whole page */
+        overflow:hidden;                /* This chops off any overhanging divs */
+}
+/* common column settings */
+.colright,
+.colmid,
+.colleft {
+        float:left;
+        width:100%;                        /* width of page */
+        position:relative;
+}
+.col1,
+.col2,
+.col3 {
+        float:left;
+        position:relative;
+        padding:0 0 1em 0;        
+        overflow:hidden;
+}
+
+.threecol {
+        background:#eee;                
+}
+.threecol .colmid {
+        right:25%;                        /* width of the right column */
+        background:#fff;                /* center column background colour */
+}
+.threecol .colleft {
+        right:50%;                        /* width of the middle column */
+        background:#f4f4f4;        /* left column background colour */
+}
+.threecol .col1 {
+        width:46%;                        /* width of center column content (column width minus padding on either side) */
+        left:102%;                        /* 100% plus left padding of center column */
+}
+.threecol .col2 {
+        width:21%;                        /* Width of left column content (column width minus padding on either side) */
+        left:31%;                        /* width of (right column) plus (center column left and right padding) plus (left column left padding) */
+}
+.threecol .col3 {
+        width:21%;                        /* Width of right column content (column width minus padding on either side) */
+        left:85%;                        /* Please make note of the brackets here:
+                                        (100% - left column width) plus (center column left and right padding) plus (left column left and right padding) plus (right column left padding) */
+}
+.titulo{
+                text-align:center;
+                font: 400 50px/1.3 'Oleo Script', Helvetica, sans-serif;
+                color: #2b2b2b;
+                text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+}
+
+        
+  </style>
+  
+        
+  </head>
+  <body>
+    <div>
+          
+      
+    
+          
+        
+         
+
+<?php
+
+           echo "<center><span class=\"titulo\">Mi primera página web </br>
+           (¡ahora con CSS y APIs!)</span></center></br>";
+ 
+                echo "<div class=\"colmask threecol\"><div class=\"colmid\"><div class=\"colleft\"><div class=\"col1\"><h2>¿Qué es esto?</h2>";
+                
+                echo"Esto es una página web enriquecida con CSS y APIs. Sirve como plantilla y podemos cambiar los textos, el contenido que ofrecen las APIs y el diseño. Esto es simplemente, un hilo del que empezar a tirar...";
+                
+                
+                echo "</div>";
+                
+                echo "<div class=\"col2\">";
+                
+              echo "<h2>Tal día como hoy...</h2>";
+              date_default_timezone_set('Europe/Madrid');
+              $dia= date("j");
+              $mes= date("m");
+               echo "día ".$dia." del ".$mes;
+              
+              $miEfemeride=buscarEfemeride($dia,$mes);
+              if (isset($miEfemeride)){
+                    $response_=$miEfemeride->{'response'};
+                    foreach($response_ as $response){
+                         $descripcion = $response->{'Description'};
+                          $text = $response->{'Text'};
+                           echo "<p><span class=resaltado>".$text."</span></p></br>";
+     
+                    }
+              }
+                    
+			
+		          echo "</div>";  
+               
+                
+              echo "<center><div class=\"col3\"><h2>El refrán del día</h2>";
+                  $miRefran_= getRefran();
+  
+  if (isset($miRefran_)){
+    	foreach($miRefran_ as $miRefran){  
+			  $oracionProverbial = $miRefran->{'oracionProverbial'};			
+	  		$significado = $miRefran->{'significado'};
+        $ejemplo = $miRefran->{'ejemplo'};
+        $dificultad = $miRefran->{'dificultad'};
+			
+			echo "<p><span class=resaltado>".$oracionProverbial."</span></p></br>";
+      echo "Definición: ";
+      echo "<p><span class=resaltado>".$significado."</span></p></br>";
+        echo "Ejemplo: ";
+       echo "<p><span class=resaltado>".$ejemplo."</span></p></br>";
+       echo "Nivel: ";
+      echo "<p><span class=resaltado>".$dificultad."</span></p></br>";
+       
+			}
+		}
+                                  
+  echo "</div></div></div></div>"; 
+  
+  function buscarEfemeride($dia,$mes){
+    #API Key
+		$access_key = "ESCRIBE AQUI TU API KEY";		
+		
+		#URL
+		$url="http://store.apicultur.com/api/ephemeris/es/daymonthbytyperand/1.0.0?day=".$dia."&month=".$mes."&type=E&rows=5";	
+
+		
+	#Iniciamos curl
+	$ch = curl_init();
+
+	#Pasamos nuestro API Key y señ¡¬¡mos que lo que nos van a devolver es JSON
+	curl_setopt($ch,CURLOPT_HTTPHEADER,array( 'Accept: application/json', 'Authorization: Bearer ' . $access_key ));
+
+	#Pasamos la url de la api 
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		
+	#Introducimos en una variable el valor que nos devuelve la api
+	$respuesta = curl_exec($ch);
+		
+	$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+	
+	#Cerrar el recurso cURL y liberar recursos
+	curl_close($ch);	
+    
+	#Comprobamos el código devuelto por la API (si es 200 es que todo ha ido bien) para ver que todo ha salido correctamente y en caso positivo devolvemos ok
+	switch ($http_status) {
+    case '200':
+		$obj = json_decode($respuesta);
+	  break;
+    default:
+	  echo "<br/>error al obtener palabras relacionadas con la palabra".$word;
+	  echo "<br/>Error:" .$http_status ;
+      break;
+	}
+	
+	return $obj;
+	}
+
+  
+  function getRefran(){
+  	#API Key
+		$access_key = "ESCRIBE AQUI TU API KEY";		
+		
+		#URL
+		$url="https://store.apicultur.com/api/refranesaleatorioscantidad/1.0.0/1";	
+
+		
+	#Iniciamos curl
+	$ch = curl_init();
+
+	#Pasamos nuestro API Key y señ¡¬¡mos que lo que nos van a devolver es JSON
+	curl_setopt($ch,CURLOPT_HTTPHEADER,array( 'Accept: application/json', 'Authorization: Bearer ' . $access_key ));
+
+	#Pasamos la url de la api 
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		
+	#Introducimos en una variable el valor que nos devuelve la api
+	$respuesta = curl_exec($ch);
+		
+	$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+	
+	#Cerrar el recurso cURL y liberar recursos
+	curl_close($ch);	
+    
+	#Comprobamos el código devuelto por la API (si es 200 es que todo ha ido bien) para ver que todo ha salido correctamente y en caso positivo devolvemos ok
+	switch ($http_status) {
+    case '200':
+		$obj = json_decode($respuesta);
+	  break;
+    default:
+	  echo "<br/>error al obtener palabras relacionadas con la palabra".$word;
+	  echo "<br/>Error:" .$http_status ;
+      break;
+	}
+	
+	return $obj;
+	}
+
+?>  			
+                
+        
+
+</body>
+</html>
