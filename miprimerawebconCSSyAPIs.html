@@ -3,7 +3,7 @@
 <link href="http://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet" type="text/css">
 
   <head>
-    <title>Onomateca: el diccionario total.</title>
+    <title>Mi web enriquecida con CSS y APIs.</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <style type="text/css">
         
@@ -98,7 +98,7 @@
               $mes= date("m");
                echo "día ".$dia." del ".$mes;
               
-              $miEfemeride=buscarEfemeride($dia,$mes);
+              $miEfemeride=obtenerEfemeride($dia,$mes);
               if (isset($miEfemeride)){
                     $response_=$miEfemeride->{'response'};
                     foreach($response_ as $response){
@@ -114,7 +114,7 @@
                
                 
               echo "<center><div class=\"col3\"><h2>El refrán del día</h2>";
-                  $miRefran_= getRefran();
+                  $miRefran_= obtenerRefran();
   
   if (isset($miRefran_)){
     	foreach($miRefran_ as $miRefran){  
@@ -136,7 +136,7 @@
                                   
   echo "</div></div></div></div>"; 
   
-  function buscarEfemeride($dia,$mes){
+  function obtenerEfemeride($dia,$mes){
     #API Key
 		$access_key = "ESCRIBE AQUI TU API KEY";		
 		
@@ -169,7 +169,7 @@
 		$obj = json_decode($respuesta);
 	  break;
     default:
-	  echo "<br/>error al obtener palabras relacionadas con la palabra".$word;
+	  echo "<br/>error al obtener las efemérides del día";
 	  echo "<br/>Error:" .$http_status ;
       break;
 	}
@@ -178,12 +178,12 @@
 	}
 
   
-  function getRefran(){
+  function obtenerRefran(){
   	#API Key
 		$access_key = "ESCRIBE AQUI TU API KEY";		
 		
 		#URL
-		$url="https://store.apicultur.com/api/refranesaleatorioscantidad/1.0.0/1";	
+		$url="https://store.apicultur.com/api/refranesaleatorios/1.0.0";	
 
 		
 	#Iniciamos curl
@@ -211,7 +211,7 @@
 		$obj = json_decode($respuesta);
 	  break;
     default:
-	  echo "<br/>error al obtener palabras relacionadas con la palabra".$word;
+	  echo "<br/>error al obtener el refrán del día";
 	  echo "<br/>Error:" .$http_status ;
       break;
 	}
