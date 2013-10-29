@@ -78,21 +78,22 @@
         
          
 
-<?php
 
-           echo "<center><span class=\"titulo\">Mi primera página web </br>
-           (¡ahora con CSS y APIs!)</span></center></br>";
+
+          <center><span class="titulo">Mi primera página web </br>
+           (¡ahora con CSS y APIs!)</span></center></br>
  
-                echo "<div class=\"colmask threecol\"><div class=\"colmid\"><div class=\"colleft\"><div class=\"col1\"><h2>¿Qué es esto?</h2>";
+                <div class="colmask threecol"><div class="colmid"><div class="colleft"><div class="col1"><h2>¿Qué es esto?</h2>
                 
-                echo"Esto es una página web enriquecida con CSS y APIs. Sirve como plantilla y podemos cambiar los textos, el contenido que ofrecen las APIs y el diseño. Esto es simplemente, un hilo del que empezar a tirar...";
+               <p>Esto es una página web enriquecida con CSS y APIs. Sirve como plantilla y podemos cambiar los textos, el contenido que ofrecen las APIs y el diseño. Esto es simplemente, un hilo del que empezar a tirar...</p>
                 
                 
-                echo "</div>";
+                </div>
                 
-                echo "<div class=\"col2\">";
+                <div class="col2">
                 
-              echo "<h2>Tal día como hoy...</h2>";
+              <h2>Tal día como hoy...</h2>
+    <?php
               date_default_timezone_set('Europe/Madrid');
               $dia= date("j");
               $mes= date("m");
@@ -108,118 +109,124 @@
      
                     }
               }
+     ?> 
                     
-			
-		          echo "</div>";  
+                        
+</div>  
                
-                
-              echo "<center><div class=\"col3\"><h2>El refrán del día</h2>";
-                  $miRefran_= obtenerRefran();
+<div class="col3"><h2>El refrán del día</h2>
+
+   <?php
+   $miRefran_= obtenerRefran();
   
   if (isset($miRefran_)){
-    	foreach($miRefran_ as $miRefran){  
-			  $oracionProverbial = $miRefran->{'oracionProverbial'};			
-	  		$significado = $miRefran->{'significado'};
+            foreach($miRefran_ as $miRefran){  
+                          $oracionProverbial = $miRefran->{'oracionProverbial'};                        
+                          $significado = $miRefran->{'significado'};
         $ejemplo = $miRefran->{'ejemplo'};
         $dificultad = $miRefran->{'dificultad'};
-			
-			echo "<p><span class=resaltado>".$oracionProverbial."</span></p></br>";
-      echo "Definición: ";
-      echo "<p><span class=resaltado>".$significado."</span></p></br>";
-        echo "Ejemplo: ";
-       echo "<p><span class=resaltado>".$ejemplo."</span></p></br>";
-       echo "Nivel: ";
-      echo "<p><span class=resaltado>".$dificultad."</span></p></br>";
+                        
+      echo "<i>".$oracionProverbial."</i></br>";
+      echo "<p>Definición:</br>";
+      echo $significado."</br>";
+      echo "<p>Ejemplo:</br>";
+      echo $ejemplo."</br>";
+      echo "<p>Nivel:</br>";
+      echo $dificultad."</br>";
        
-			}
-		}
+          }
+    }
+    
+     ?>
                                   
-  echo "</div></div></div></div>"; 
+ </div></div></div></div>
+ 
+ <?php
   
   function obtenerEfemeride($dia,$mes){
     #API Key
-		$access_key = "ESCRIBE AQUI TU API KEY";		
-		
-		#URL
-		$url="http://store.apicultur.com/api/ephemeris/es/daymonthbytyperand/1.0.0?day=".$dia."&month=".$mes."&type=E&rows=5";	
+                $access_key = "ESCRIBE AQUI TU API KEY";                
+                
+                #URL
+                $url="http://store.apicultur.com/api/ephemeris/es/daymonthbytyperand/1.0.0?day=".$dia."&month=".$mes."&type=E&rows=5";        
 
-		
-	#Iniciamos curl
-	$ch = curl_init();
+                
+        #Iniciamos curl
+        $ch = curl_init();
 
-	#Pasamos nuestro API Key y señ¡¬¡mos que lo que nos van a devolver es JSON
-	curl_setopt($ch,CURLOPT_HTTPHEADER,array( 'Accept: application/json', 'Authorization: Bearer ' . $access_key ));
+        #Pasamos nuestro API Key y señ¡¬¡mos que lo que nos van a devolver es JSON
+        curl_setopt($ch,CURLOPT_HTTPHEADER,array( 'Accept: application/json', 'Authorization: Bearer ' . $access_key ));
 
-	#Pasamos la url de la api 
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		
-	#Introducimos en una variable el valor que nos devuelve la api
-	$respuesta = curl_exec($ch);
-		
-	$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        #Pasamos la url de la api 
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                
+        #Introducimos en una variable el valor que nos devuelve la api
+        $respuesta = curl_exec($ch);
+                
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-	
-	#Cerrar el recurso cURL y liberar recursos
-	curl_close($ch);	
+        
+        #Cerrar el recurso cURL y liberar recursos
+        curl_close($ch);        
     
-	#Comprobamos el código devuelto por la API (si es 200 es que todo ha ido bien) para ver que todo ha salido correctamente y en caso positivo devolvemos ok
-	switch ($http_status) {
+        #Comprobamos el código devuelto por la API (si es 200 es que todo ha ido bien) para ver que todo ha salido correctamente y en caso positivo devolvemos ok
+        switch ($http_status) {
     case '200':
-		$obj = json_decode($respuesta);
-	  break;
+                $obj = json_decode($respuesta);
+          break;
     default:
-	  echo "<br/>error al obtener las efemérides del día";
-	  echo "<br/>Error:" .$http_status ;
+          echo "<br/>error al obtener las efemérides del día";
+          echo "<br/>Error:" .$http_status ;
       break;
-	}
-	
-	return $obj;
-	}
+        }
+        
+        return $obj;
+        }
 
   
   function obtenerRefran(){
-  	#API Key
-		$access_key = "ESCRIBE AQUI TU API KEY";		
-		
-		#URL
-		$url="https://store.apicultur.com/api/refranesaleatorios/1.0.0";	
+          #API Key
+                $access_key = "ESCRIBE AQUI TU API KEY";                
+                
+                #URL
+                $url="https://store.apicultur.com/api/refranesaleatorios/1.0.0";        
 
-		
-	#Iniciamos curl
-	$ch = curl_init();
+                
+        #Iniciamos curl
+        $ch = curl_init();
 
-	#Pasamos nuestro API Key y señ¡¬¡mos que lo que nos van a devolver es JSON
-	curl_setopt($ch,CURLOPT_HTTPHEADER,array( 'Accept: application/json', 'Authorization: Bearer ' . $access_key ));
+        #Pasamos nuestro API Key y señ¡¬¡mos que lo que nos van a devolver es JSON
+        curl_setopt($ch,CURLOPT_HTTPHEADER,array( 'Accept: application/json', 'Authorization: Bearer ' . $access_key ));
 
-	#Pasamos la url de la api 
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		
-	#Introducimos en una variable el valor que nos devuelve la api
-	$respuesta = curl_exec($ch);
-		
-	$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        #Pasamos la url de la api 
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                
+        #Introducimos en una variable el valor que nos devuelve la api
+        $respuesta = curl_exec($ch);
+                
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-	
-	#Cerrar el recurso cURL y liberar recursos
-	curl_close($ch);	
+        
+        #Cerrar el recurso cURL y liberar recursos
+        curl_close($ch);        
     
-	#Comprobamos el código devuelto por la API (si es 200 es que todo ha ido bien) para ver que todo ha salido correctamente y en caso positivo devolvemos ok
-	switch ($http_status) {
+        #Comprobamos el código devuelto por la API (si es 200 es que todo ha ido bien) para ver que todo ha salido correctamente y en caso positivo devolvemos ok
+        switch ($http_status) {
     case '200':
-		$obj = json_decode($respuesta);
-	  break;
+                $obj = json_decode($respuesta);
+          break;
     default:
-	  echo "<br/>error al obtener el refrán del día";
-	  echo "<br/>Error:" .$http_status ;
+          echo "<br/>error al obtener el refrán del día";
+          echo "<br/>Error:" .$http_status ;
       break;
-	}
-	
-	return $obj;
-	}
+        }
+        
+        return $obj;
+        }
 
-?>  			
+?>                          
                 
         
 
