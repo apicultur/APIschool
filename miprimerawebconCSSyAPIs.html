@@ -105,7 +105,7 @@
                     foreach($response_ as $response){
                          $descripcion = $response->{'Description'};
                           $text = $response->{'Text'};
-                           echo "<p><span class=resaltado>".$text."</span></p></br>";
+                           echo "<p>".$text."</p></br>";
      
                     }
               }
@@ -126,7 +126,7 @@
         $ejemplo = $miRefran->{'ejemplo'};
         $dificultad = $miRefran->{'dificultad'};
                         
-      echo "<i>".$oracionProverbial."</i></br>";
+	  echo "<i>".$oracionProverbial."</i></br>";
       echo "<p>Definición:</br>";
       echo $significado."</br>";
       echo "<p>Ejemplo:</br>";
