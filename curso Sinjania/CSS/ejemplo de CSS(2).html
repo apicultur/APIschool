@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Página con CSS (id, span y class)</title>
+<style type="text/css">
+	body{
+		font-size: 16px;
+		font-family: Arial, sans-serif;
+		color: Black;
+		background-color: LightGoldenRodYellow;
+	}
+	h1 {
+		text-align: center;
+		font-size: 200%;
+		color: Green ;
+	}
+	h2 {
+		font-size: 150%;
+		color: DarkGoldenRod;
+		margin: 14px;
+	}
+	a{
+		color: DarkOrange;
+		text-decoration:none;
+		font-weight:bold;
+	}
+	/*Estilo para el elemento identificado como miparrafo*/
+	#miparrafo{
+		font-style: italic;
+	}
+	/* Estilos para las clases centrado, grande y rojo */
+	.centrado{
+		text-align:center;
+	}
+	.grande{
+	font-size: 175%;
+	}
+	.rojo{
+		color: red;
+	}
+
+
+
+</style>
+
+</head>
+<body>
+<h1>Este encabezado será el doble de grande y verde</h1>
+<p id="miparrafo">Ahora este párrafo tiene su propio estilo (el resto de párrafos no se ven afectados).</p>
+<h2 class="centrado">Esto es un subtítulo (con un poquito de margen)</h2>
+<p class="centrado">Tanto el subtítulo como este párrafo están modificados por la clase centrado.</p>
+
+<h2>Esto es otro subtítulo</h2>
+<p>Este otro párrafo no tiene la clase centrado, así que tiene el aspecto habitual. En el CSS hemos establecido un estilo determinado para los links, de tal manera que  <a href="http://www.molinodeideas.com/">este es el aspecto de un link</a> (naranja, resaltado y sin subrayado). Gracias a las etiquetas span podemos dar estilo a más elementos y que de pronto el texto se vea <span class="grande">más grande</span> o de <span class="rojo">color rojo</span> o <span class="grande"><span class="rojo">ambas cosas a la vez</span></span>.</p>
+</body>
+</html>
