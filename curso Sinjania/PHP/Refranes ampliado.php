@@ -30,11 +30,11 @@ h1{
   color:   black;
   font-style:italic;
 }
-.frecuencia{
+.letra{
                 font-family: Consolas, monaco, monospace;
                 font-size:400%;
 }
- .tipo{
+ .subtitulo{
                 font-family: Consolas, monaco, monospace;
                 font-size:100%;
 }
@@ -76,20 +76,20 @@ echo "</div><div style=\"width: 20%; float:right\">";
 
 	$dificultad=$refran->{'dificultad'};
 	if($dificultad=="Nivel inicial"){
-                        echo "<span class=nivelA><span class=frecuencia>A</span></span></br>";
-                        echo "<span class=nivelA><span class=tipo>B&aacute;sico</span></span></br>";
+                        echo "<span class=nivelA><span class=letra>A</span></span></br>";
+                        echo "<span class=nivelA><span class=subtitulo>B&aacute;sico</span></span></br>";
                         }
                         if($dificultad=="Nivel intermedio"){
-                        echo "<span class=nivelB><span class=frecuencia>B</span></span></br>";
-                        echo "<span class=nivelB><span class=tipo>intermedio</span></span></br>";
+                        echo "<span class=nivelB><span class=letra>B</span></span></br>";
+                        echo "<span class=nivelB><span class=subtitulo>intermedio</span></span></br>";
                         }
                         if($dificultad=="Nivel avanzado"){
-                        echo "<span class=nivelC><span class=frecuencia>C</span></span></br>";
-                        echo "<span class=nivelC><span class=tipo>avanzado</span></span></br>";
+                        echo "<span class=nivelC><span class=letra>C</span></span></br>";
+                        echo "<span class=nivelC><span class=subtitulo>avanzado</span></span></br>";
                         }
                         if($dificultad=="Nativo"){
-                        echo "<span class=nivelD><span class=frecuencia>D</span></span></br>";
-                        echo "<span class=nivelD><span class=tipo>experto</span></span></br>";
+                        echo "<span class=nivelD><span class=letra>D</span></span></br>";
+                        echo "<span class=nivelD><span class=subtitulo>experto</span></span></br>";
                         }
 	echo "<br>";
  echo "</div>";
