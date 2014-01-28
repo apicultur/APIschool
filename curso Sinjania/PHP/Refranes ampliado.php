@@ -38,16 +38,16 @@ h1{
                 font-family: Consolas, monaco, monospace;
                 font-size:100%;
 }
-        .nivelA{
+.nivelA{
                 color: Green;
         }
-        .nivelB{
+.nivelB{
                 color: Orange ;
         }
-        .nivelC{
+.nivelC{
                 color: OrangeRed ;
         }
-        .nivelD{
+.nivelD{
                 color: DarkRed ;
         }
 
@@ -78,19 +78,19 @@ echo "</div><div style=\"width: 20%; float:right\">";
 	if($dificultad=="Nivel inicial"){
                         echo "<span class=nivelA><span class=letra>A</span></span></br>";
                         echo "<span class=nivelA><span class=subtitulo>B&aacute;sico</span></span></br>";
-                        }
-                        if($dificultad=="Nivel intermedio"){
+    }
+    if($dificultad=="Nivel intermedio"){
                         echo "<span class=nivelB><span class=letra>B</span></span></br>";
                         echo "<span class=nivelB><span class=subtitulo>intermedio</span></span></br>";
-                        }
-                        if($dificultad=="Nivel avanzado"){
-                        echo "<span class=nivelC><span class=letra>C</span></span></br>";
+    }
+    if($dificultad=="Nivel avanzado"){
+						echo "<span class=nivelC><span class=letra>C</span></span></br>";
                         echo "<span class=nivelC><span class=subtitulo>avanzado</span></span></br>";
-                        }
-                        if($dificultad=="Nativo"){
+    }
+    if($dificultad=="Nativo"){
                         echo "<span class=nivelD><span class=letra>D</span></span></br>";
                         echo "<span class=nivelD><span class=subtitulo>experto</span></span></br>";
-                        }
+    }
 	echo "<br>";
  echo "</div>";
 }
