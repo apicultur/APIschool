@@ -77,7 +77,7 @@ echo "</div><div style=\"width: 20%; float:right\">";
 	$dificultad=$refran->{'dificultad'};
 	if($dificultad=="Nivel inicial"){
                         echo "<span class=nivelA><span class=letra>A</span></span></br>";
-                        echo "<span class=nivelA><span class=subtitulo>B&aacute;sico</span></span></br>";
+                        echo "<span class=nivelA><span class=subtitulo>inicial</span></span></br>";
     }
     if($dificultad=="Nivel intermedio"){
                         echo "<span class=nivelB><span class=letra>B</span></span></br>";
